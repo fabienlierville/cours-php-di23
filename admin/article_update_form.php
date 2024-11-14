@@ -13,6 +13,7 @@
     <h1>Admin - Mise à jour d'un article</h1>
 
 <form method="post" action="article_update_script.php">
+    <input type="hidden" name="Id" value="<?php echo $article["Id"]; ?>">
     <input type="text" name="Titre" placeholder="Titre" value="<?php echo $article["Titre"]; ?>">
     <textarea name="Description"><?php echo $article["Description"]; ?></textarea>
     <input type="date" name="DatePublication" value="<?php echo $article["DatePublication"]; ?>">
