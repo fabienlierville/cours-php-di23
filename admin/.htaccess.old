@@ -1,0 +1,4 @@
+AuthType Basic
+AuthName "Espace ADMIN, log toi maintenant"
+AuthUserFile ../../var/www/html/.htpasswd
+require valid-user

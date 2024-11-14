@@ -37,6 +37,15 @@
     ?>
     </tbody>
 </table>
+<?php
+//Hash
+$hash = password_hash("azerty",PASSWORD_BCRYPT,array("cost"=>10));
+var_dump($hash);
+
+if(password_verify("Azerty",$hash)){
+    echo "Mot de passe valide";
+}
+?>
 <?php require("./inc/footer.php"); ?>
 
 
