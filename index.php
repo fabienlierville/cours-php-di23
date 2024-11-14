@@ -9,20 +9,34 @@
             $requete->execute();
             $articles = $requete->fetchAll(PDO::FETCH_ASSOC);
         }else{
-            $requete = $bdd->query("SELECT * FROM articles");
+            $requete = $bdd->query("SELECT * FROM articles order by Id DESC Limit 0,10");
             $articles = $requete->fetchAll(PDO::FETCH_ASSOC);
         }
-
-        var_dump($articles);
     ?>
     <form name="recherche" method="post">
         <input type="text" placeholder="Recherche..." name="search">
         <input type="hidden" name="champinvisible" value="1234">
     </form>
 
-<?php
-var_dump($_POST);
-?>
+<table>
+    <thead>
+    <tr>
+        <th scope="col">Titre</th>
+        <th scope="col">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <?php
+    foreach($articles as $article){
+        echo "<tr>";
+        echo "<th scope='row'></th>";
+        echo "<td>{$article["Titre"]}</td>";
+        echo "<td>".get_words($article["Description"],10)." <a href='/article_show.php?Id={$article["Id"]}'>Lire le suite...</a></td>";
+        echo "</tr>";
+    }
+    ?>
+    </tbody>
+</table>
 <?php require("./inc/footer.php"); ?>
 
 
