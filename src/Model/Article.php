@@ -88,7 +88,6 @@ class Article {
 
     public static function SqlAdd(Article $article)
     {
-        var_dump(BDD::getInstance());
         try {
             $requete = BDD::getInstance()->prepare("INSERT INTO articles (Titre,Description,DatePublication,Auteur, ImageRepository, ImageFileName) VALUES (:Titre,:Description,:DatePublication,:Auteur, :ImageRepository, :ImageFileName)");
             $requete->bindValue(':Titre',$article->getTitre());
