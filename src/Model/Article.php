@@ -88,6 +88,7 @@ class Article {
 
     public static function SqlAdd(\PDO $bdd, Article $article)
     {
+
         try {
             $requete = $bdd->prepare("INSERT INTO articles (Titre,Description,DatePublication,Auteur, ImageRepository, ImageFileName) VALUES (:Titre,:Description,:DatePublication,:Auteur, :ImageRepository, :ImageFileName)");
             $requete->bindValue(':Titre',$article->getTitre());
