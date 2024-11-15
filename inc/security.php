@@ -5,6 +5,7 @@ function haveGoodRole(array $rolesCompatibles) :bool {
     //Donc dans $rolesCompatibles on enverra ["Admin","Redacteur"]
     session_start();
     if(!isset($_SESSION["Login"])){
+        $_SESSION["ERROR"] = "UTilisateur non loggé";
         return false;
     }
 
@@ -12,10 +13,12 @@ function haveGoodRole(array $rolesCompatibles) :bool {
     // On a un tableau de role compatible
     // Dans la session on un tableau de role pour l'utilisateur
     $roleFound = false;
+    $_SESSION["ERROR"] = "Pas le bon role";
     $rolesSession = json_decode($_SESSION["Login"]["Roles"]);
     foreach($rolesSession as $role){
         if(in_array($role, $rolesCompatibles)){
             $roleFound = true;
+            unset($_SESSION["ERROR"]);
             break;
         }
     }
