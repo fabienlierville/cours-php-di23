@@ -9,7 +9,7 @@ if(!haveGoodRole(["Admin", "test"])){
 <?php require("../inc/header.php"); ?>
     <h1>Admin - Ajouter un article</h1>
 
-<form method="post" action="article_add_script.php">
+<form method="post" action="article_add_script.php" enctype="multipart/form-data">
     <input type="text" name="Titre" placeholder="Titre">
     <textarea name="Description"></textarea>
     <input type="date" name="DatePublication">
@@ -20,6 +20,7 @@ if(!haveGoodRole(["Admin", "test"])){
         <option value="Antoine">Antoine</option>
         <option value="Laura">Laura</option>
     </select>
+    <input type="file" name="Image">
     <input type="submit">
 </form>
 <?php require("../inc/footer.php"); ?>
