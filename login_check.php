@@ -11,7 +11,7 @@ $user = $requete->fetch(PDO::FETCH_ASSOC);
 // Compare mot de passe clair / hashé en base
 // Early Return (mail invalide, mot de passe invalide)
 session_start();
-if(count($user) == 0){
+if(!$user){
     $_SESSION["ERROR"] = "Mail invalide";
     header("Location:/login.php");
     exit();
