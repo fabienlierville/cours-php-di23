@@ -16,7 +16,7 @@ class ArticleController
         return $html;
     }
 
-    public function fixtiures(){
+    public function fixtures(){
         $requete = BDD::getInstance()->prepare("TRUNCATE TABLE articles")->execute();
         $arrayAuteur = ["Thomas","Timéo","Alexandre","Antoine","Laura"];
         $arrayTitre = ["PHP En force", "React JS une valeur sure", "C# toujours au top", "Java en baisse"];
