@@ -1,4 +1,11 @@
 <?php require("../inc/config.php"); ?>
+<?php
+require "../inc/security.php";
+if(!haveGoodRole(["Admin", "test"])){
+    header("Location: /login.php");
+    exit();
+}
+?>
 <?php require("../inc/header.php"); ?>
     <h1>Admin - Ajouter un article</h1>
 
