@@ -1,6 +1,5 @@
 <?php
-namespace objet;
-
+namespace src\Model;
 class Article {
     private ?int $Id = null;
     private ?String $Titre = null;

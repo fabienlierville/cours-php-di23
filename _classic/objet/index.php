@@ -1,7 +1,7 @@
 <?php
 require "../inc/config.php";
 require "Article.php";
-use objet\Article;
+use _classic\objet\Article;
 $article = new Article();
 $article->setTitre("Titre")
     ->setDescription("Description")
