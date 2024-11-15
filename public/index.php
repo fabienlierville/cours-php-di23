@@ -16,4 +16,4 @@ spl_autoload_register(function ($class) {
 
 $article = new \src\Model\Article();
 $article->setTitre("Coucou MVC");
-\src\Model\Article::SqlAdd($bdd,$article);
+\src\Model\Article::SqlAdd($article);

@@ -17,9 +17,9 @@ class BDD {
     public static function getInstance(){
         if(is_null(self::$_instance)){
             try {
-                $_instance = new PDO("mysql:host="._DBHOSTNAME_.";port="._DBPORT_.";dbname="._DBNAME_.";charset=utf8", _DBUSERNAME_, _DBPASSWORD_);
-                $_instance->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            }catch (Exception $e){
+                self::$_instance = new PDO("mysql:host=".self::_DBHOSTNAME_.";port=".self::_DBPORT_.";dbname=".self::_DBNAME_.";charset=utf8", self::_DBUSERNAME_, self::_DBPASSWORD_);
+                self::$_instance->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            }catch (\Exception $e){
                 die("ERREUR BDD : {$e->getMessage()}");
             }
         }

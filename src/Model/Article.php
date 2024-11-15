@@ -86,19 +86,19 @@ class Article {
         return $this;
     }
 
-    public static function SqlAdd(\PDO $bdd, Article $article)
+    public static function SqlAdd(Article $article)
     {
-
+        var_dump(BDD::getInstance());
         try {
-            $requete = $bdd->prepare("INSERT INTO articles (Titre,Description,DatePublication,Auteur, ImageRepository, ImageFileName) VALUES (:Titre,:Description,:DatePublication,:Auteur, :ImageRepository, :ImageFileName)");
+            $requete = BDD::getInstance()->prepare("INSERT INTO articles (Titre,Description,DatePublication,Auteur, ImageRepository, ImageFileName) VALUES (:Titre,:Description,:DatePublication,:Auteur, :ImageRepository, :ImageFileName)");
             $requete->bindValue(':Titre',$article->getTitre());
             $requete->bindValue(':Description',$article->getDescription());
-            $requete->bindValue(':DatePublication',$article->getDatePublication()->format('Y-m-d'));
+            $requete->bindValue(':DatePublication',$article->getDatePublication()?->format('Y-m-d'));
             $requete->bindValue(':Auteur',$article->getAuteur());
             $requete->bindValue(':ImageRepository',$article->getImageRepository());
             $requete->bindValue(':ImageFileName',$article->getImageFileName());
             $requete->execute();
-            return $bdd->lastInsertId();
+            return BDD::getInstance()->lastInsertId();
         }catch (\PDOException $e) {
             return $e->getMessage();
         }
