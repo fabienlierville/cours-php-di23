@@ -28,4 +28,10 @@ $_SESSION["Login"] = [
     "Roles" => $user["Roles"],
     "UserId" => $user["Id"],
 ];
+if(isset($_POST["RememberMe"]) && $_POST["RememberMe"] == true){
+    $token = bin2hex(random_bytes(32));
+    //On genere un token et on l'insert dan la table users
+    // update users set token=$token where email = $_POST["Email"]
+    setcookie("rememberToken", $token, time() + (86400 * 30), "/");
+}
 header("Location:/admin");
