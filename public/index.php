@@ -51,7 +51,9 @@ if($controller != ''){
 
 
 
-
+//generate Password
+//$hash = password_hash("azerty",PASSWORD_BCRYPT, ["cost" => 10]);
+//var_dump($hash);
 
 
 
