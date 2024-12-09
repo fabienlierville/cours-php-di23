@@ -1,4 +1,7 @@
 <?php
+
+use src\Controller\ErrorController;
+
 require_once '../vendor/autoload.php';
 
 //Autoload qui require la class demandée
@@ -41,7 +44,8 @@ if($controller != ''){
     }catch (Exception $e){
         //Todo plus tard affiche une page "Error" qui contient
         // le message d'erreur dans $e-getMessage();
-        echo $e->getMessage();
+        $controller = new ErrorController();
+        echo $controller->show($e);
     }
 }else{
     //Page par défaut
