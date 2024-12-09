@@ -5,15 +5,13 @@ namespace src\Controller;
 use src\Model\Article;
 use src\Model\BDD;
 
-class ArticleController
+class ArticleController extends AbstractController
 {
     public function index(){
-        $html = "<h1>Voici les 20 derniers articles :</h1>";
         $articles = Article::SqlGetLast(20);
-        foreach ($articles as $article) {
-            $html .= "<p>Titre = {$article->getTitre()}</p>";
-        }
-        return $html;
+        return $this->twig->render('Article/index.html.twig', [
+            'articles' => $articles
+        ]);
     }
 
     public function fixtures(){

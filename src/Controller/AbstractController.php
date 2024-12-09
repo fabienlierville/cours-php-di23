@@ -5,9 +5,9 @@ abstract class AbstractController{
     protected $twig = null;
 
     public function __construct(){
-        $loader = new \Twig\Loader\FilesystemLoader($_SERVER['DOCUMENT_ROOT'].'../src/View');
+        $loader = new \Twig\Loader\FilesystemLoader($_SERVER['DOCUMENT_ROOT'].'/../src/View');
         $this->twig = new \Twig\Environment($loader, [
-            'cache' => $_SERVER['DOCUMENT_ROOT'].'../var/cache',
+            'cache' => $_SERVER['DOCUMENT_ROOT'].'/../var/cache',
             'debug' => true,
         ]);
         $this->twig->addExtension(new \Twig\Extension\DebugExtension());
