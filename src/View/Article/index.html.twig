@@ -1,3 +1,5 @@
-<h1>Voici les 20 derniers articles : </h1>
+<h1>Voici les 20 derniers articles :</h1>
 
-{{ dump(articles) }}
+{% for article in articles %}
+    <p>TITRE : {{ article.Titre }}</p>
+{% endfor %}
