@@ -1,4 +1,5 @@
 <?php
+require_once '../vendor/autoload.php';
 
 //Autoload qui require la class demandée
 spl_autoload_register(function ($class) {
@@ -29,9 +30,9 @@ if($controller != ''){
 
         if(class_exists($class)) {
             $controller = new $class();
-            if(method_exists($controller, $action)) {
+            if (method_exists($controller, $action)) {
                 echo $controller->$action($param);
-            }else{
+            } else {
                 throw new Exception("Action {$action} does not exist in {$class}");
             }
         }else{
