@@ -126,4 +126,25 @@ class Article {
 
     }
 
+    public static function SqlGetAll()
+    {
+        $requete = BDD::getInstance()->prepare('SELECT * FROM articles ORDER BY Id DESC');
+        $requete->execute();
+
+        $articlesSql = $requete->fetchAll(\PDO::FETCH_ASSOC);
+        $articlesObjet = [];
+        foreach ($articlesSql as $articleSql){
+            $article = new Article();
+            $article->setTitre($articleSql["Titre"])
+                ->setDescription($articleSql["Description"])
+                ->setDatePublication(new \DateTime($articleSql["DatePublication"]))
+                ->setAuteur($articleSql["Auteur"])
+                ->setImageRepository($articleSql["ImageRepository"])
+                ->setImageFileName($articleSql["ImageFileName"]);
+            $articlesObjet[] = $article;
+        }
+        return $articlesObjet;
+
+
+    }
 }
