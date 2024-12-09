@@ -1,5 +1,9 @@
-<h1>Voici les 20 derniers articles :</h1>
+{% extends "base.html.twig" %}
+{%  block title %}{{ parent() }} - Liste des derniers articles {% endblock %}
+{% block body %}
+    <h1>Voici les 20 derniers articles :</h1>
 
-{% for article in articles %}
-    <p>TITRE : {{ article.Titre }}</p>
-{% endfor %}
+    {% for article in articles %}
+        <p>TITRE : {{ article.Titre }}</p>
+    {% endfor %}
+{% endblock %}
