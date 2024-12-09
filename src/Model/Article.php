@@ -145,7 +145,11 @@ class Article {
             $articlesObjet[] = $article;
         }
         return $articlesObjet;
+    }
 
-
+    public static function SqlDelete(int $id){
+        $requete = BDD::getInstance()->prepare('DELETE FROM articles WHERE Id = :id');
+        $requete->bindValue(':id',$id);
+        $requete->execute();
     }
 }

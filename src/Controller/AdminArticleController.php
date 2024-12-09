@@ -10,4 +10,9 @@ class AdminArticleController extends AbstractController{
             'articles' => $articles
         ]);
     }
+
+    public function delete(int $id){
+        Article::SqlDelete($id);
+        header('location: /?controller=AdminArticle&action=list');
+    }
 }

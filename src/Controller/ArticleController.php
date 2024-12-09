@@ -31,6 +31,6 @@ class ArticleController extends AbstractController
                 ->setDatePublication($dateAjout);
             Article::SqlAdd($article);
         }
-
+        header('location: /');
     }
 }
