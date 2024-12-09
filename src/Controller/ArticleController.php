@@ -33,4 +33,11 @@ class ArticleController extends AbstractController
         }
         header('location: /');
     }
+
+    public function show($id){
+        $article = Article::SqlGetById($id);
+        return $this->twig->render('Article/show.html.twig', [
+            'article' => $article
+        ]);
+    }
 }
