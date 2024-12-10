@@ -1,6 +1,8 @@
 <?php
 namespace src\Model;
-class Article {
+use JsonSerializable;
+
+class Article implements JsonSerializable{
     private ?int $Id = null;
     private ?String $Titre = null;
     private ?String $Description = null;
@@ -185,4 +187,16 @@ class Article {
         ]);
     }
 
+    public function jsonSerialize() : mixed
+    {
+        return [
+            'Id' => $this->Id,
+            'Titre' => $this->Titre,
+            'Description' => $this->Description,
+            'Auteur' => $this->Auteur,
+            'ImageRepository' => $this->ImageRepository,
+            'ImageFileName' => $this->ImageFileName,
+            'DatePublication' => $this->DatePublication->format("Y-m-d")
+        ];
+    }
 }
