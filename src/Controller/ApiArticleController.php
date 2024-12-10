@@ -53,12 +53,32 @@ class ApiArticleController {
                     "message" => "Il faut des données"]
             );
         }
+        //Gestion de l'image
+        $sqlRepository = null;
+        $nomImage = null;
+
+        if(isset($json->Image)) {
+            $nomImage = uniqid().".jpg";
+            //Fabriquer le répertoire d'accueil
+            $dateNow = new \DateTime();
+            $sqlRepository = $dateNow->format('Y/m');
+            $repository = './uploads/images/' . $dateNow->format('Y/m');
+            if (!is_dir($repository)) {
+                mkdir($repository, 0777, true);
+            }
+            //Fabriquer l'image
+            $ifp = fopen($repository . "/" . $nomImage, "wb");
+            fwrite($ifp, base64_decode($json->Image));
+            fclose($ifp);
+        }
 
         $article = new Article();
         $article->setTitre($json->Titre);
         $article->setDescription($json->Description);
         $article->setAuteur($json->Auteur);
         $article->setDatePublication(new \DateTime($json->DatePublication));
+        $article->setImageRepository($sqlRepository);
+        $article->setImageFileName($nomImage);
         $id = Article::SqlAdd($article);
         return json_encode([
             "status" => "success",
