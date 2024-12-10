@@ -12,7 +12,13 @@ $("#Search").autocomplete({
             },
             success: function (data){
                 console.log(data);
-                response([]);
+                var transformed = $.map(data, function (el){
+                    return {
+                        label: el.Titre,
+                        id: el.Id
+                    }
+                });
+                response(transformed);
             },
             error: function (){
                 console.error("Erreur appel API");
