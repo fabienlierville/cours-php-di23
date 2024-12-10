@@ -86,7 +86,7 @@ class Article {
         return $this;
     }
 
-    public static function SqlAdd(Article $article)
+    public static function SqlAdd(Article $article) : int
     {
         try {
             $requete = BDD::getInstance()->prepare("INSERT INTO articles (Titre,Description,DatePublication,Auteur, ImageRepository, ImageFileName) VALUES (:Titre,:Description,:DatePublication,:Auteur, :ImageRepository, :ImageFileName)");

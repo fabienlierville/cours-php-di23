@@ -52,10 +52,10 @@ class AdminArticleController extends AbstractController{
             $article->setDatePublication(new \DateTime($_POST['DatePublication']));
 
             //3. Exécuter la requete SQL d'ajout (model)
-            Article::SqlAdd($article);
+            $id = Article::SqlAdd($article);
 
             //4. Rédiriger l'internaute sur la page liste
-            header('location: /?controller=AdminArticle&action=list');
+            header("location: /?controller=Article&action=show&param={$id}");
 
         }
         return $this->twig->render('Admin/Article/add.html.twig');

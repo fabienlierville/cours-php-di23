@@ -1,0 +1,1 @@
+alert("JS du fichier script.js général");
