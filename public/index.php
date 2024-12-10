@@ -1,5 +1,4 @@
 <?php
-
 use src\Controller\ErrorController;
 
 require_once '../vendor/autoload.php';
@@ -23,9 +22,10 @@ spl_autoload_register(function ($class) {
 // index.php?controller=Article&action=show&id=156
 // index.php?controller=User&action=login
 //Routeur
-$controller = (isset($_GET['controller'])) ? $_GET['controller'] : '';
-$action = (isset($_GET['action'])) ? $_GET['action'] : '';
-$param = (isset($_GET['param'])) ? $_GET['param'] : '';
+$urls = explode('/', $_GET['url']);
+$controller = (isset($urls[0])) ? $urls[0] : '';
+$action = (isset($urls[1])) ? $urls[1] : '';
+$param = (isset($urls[2])) ? $urls[2] : '';
 
 if($controller != ''){
     try{

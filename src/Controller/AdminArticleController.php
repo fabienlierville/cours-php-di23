@@ -13,7 +13,7 @@ class AdminArticleController extends AbstractController{
 
     public function delete(int $id){
         Article::SqlDelete($id);
-        header('location: /?controller=AdminArticle&action=list');
+        header('location: /AdminArticle/list');
     }
 
     public function add(){
@@ -55,7 +55,7 @@ class AdminArticleController extends AbstractController{
             $id = Article::SqlAdd($article);
 
             //4. Rédiriger l'internaute sur la page liste
-            header("location: /?controller=Article&action=show&param={$id}");
+            header("location: /Article/show/{$id}");
 
         }
         return $this->twig->render('Admin/Article/add.html.twig');
@@ -98,7 +98,7 @@ class AdminArticleController extends AbstractController{
                 ->setImageRepository($sqlRepository)
                 ->setImageFileName($nomImage);
             Article::SqlUpdate($article);
-            header("Location:/?controller=Article&action=show&param={$id}");
+            header("Location:/Article/show/{$id}");
             exit();
         }else{
             return $this->twig->render("Admin/Article/update.html.twig",[
