@@ -168,4 +168,21 @@ class Article {
         $article->setImageFileName($sqlArticle["ImageFileName"]);
         return $article;
     }
+
+
+    public static function SqlUpdate(Article $article)
+    {
+        $requete = BDD::getInstance()->prepare("UPDATE articles SET Titre=:Titre, Description=:Description, DatePublication=:DatePublication, Auteur=:Auteur, ImageRepository=:ImageRepository, ImageFileName=:ImageFileName WHERE Id=:Id");
+
+        $bool = $requete->execute([
+            "Titre" => $article->getTitre(),
+            "Description" => $article->getDescription(),
+            "DatePublication" => $article->getDatePublication()->format("Y-m-d"),
+            "Auteur" => $article->getAuteur(),
+            "ImageRepository" => $article->getImageRepository(),
+            "ImageFileName" => $article->getImageFileName(),
+            "Id"=> $article->getId()
+        ]);
+    }
+
 }

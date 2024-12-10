@@ -1,1 +1,1 @@
-alert("JS du fichier script_article_add.js");
+//alert("JS du fichier script_article_add.js");

@@ -1,1 +1,1 @@
-alert("JS du fichier script.js général");
+//alert("JS du fichier script.js général");

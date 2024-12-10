@@ -16,7 +16,7 @@
         <tbody>
         {% for article in articles %}
             <tr>
-                <td><a href="#">{{ article.Id }}</a></td>
+                <td><a href="/?controller=AdminArticle&action=update&param={{ article.Id }}">{{ article.Id }}</a></td>
                 <td><a href="/?controller=Article&action=show&param={{ article.Id }}">{{ article.Titre }}</a></td>
                 <td>{{ article.DatePublication|date('d/m/Y') }}</td>
                 <td>{{ article.Auteur }}</td>
