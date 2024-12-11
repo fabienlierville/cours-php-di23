@@ -2,6 +2,7 @@
 
 namespace src\Controller;
 
+use Mpdf\Mpdf;
 use src\Model\Article;
 use src\Model\BDD;
 
@@ -39,5 +40,16 @@ class ArticleController extends AbstractController
         return $this->twig->render('Article/show.html.twig', [
             'article' => $article
         ]);
+    }
+
+    public function pdf(int $id){
+        $article = Article::SqlGetById($id);
+        $mpdf = new Mpdf([
+            "tempDir" => $_SERVER["DOCUMENT_ROOT"]."/../var/cache/articles/".$article->getId()."/pdf",
+        ]);
+        $mpdf->WriteHTML($this->twig->render('Article/pdf.html.twig', [
+            'article' => $article
+        ]));
+        $mpdf->Output();
     }
 }

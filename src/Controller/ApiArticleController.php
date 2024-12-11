@@ -24,6 +24,14 @@ class ApiArticleController {
             return json_encode($jwtresult["message"]);
         }
 
+        if(!in_array("Administrateur",$jwtresult["data"]->Roles)){
+            return json_encode(
+                [
+                    "status" => "error",
+                    "message" => "Vous n'avez pas le role Toto"]
+            );
+        }
+
         $articles = Article::SqlGetAll();
         return json_encode($articles);
     }
