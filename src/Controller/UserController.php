@@ -3,6 +3,7 @@
 namespace src\Controller;
 
 use src\Model\User;
+use src\Service\JwtService;
 
 class UserController extends AbstractController
 {
@@ -70,6 +71,72 @@ class UserController extends AbstractController
     {
         unset($_SESSION["login"]);
         header("Location:/");
+    }
+
+    public function loginjwt()
+    {
+        header("Content-type: application/json; charset=utf-8");
+
+        if($_SERVER["REQUEST_METHOD"] != "POST") {
+            header("HTTP/1.1 405 Method Not Allowed");
+            return json_encode(
+                [
+                    "status" => "error",
+                    "message" => "Post Attendu"]
+            );
+        }
+
+        // Récupération du Body en String
+        $data  = file_get_contents("php://input");
+        //Conversion du String en JSON
+        $json = json_decode($data);
+
+        if(empty($json)) {
+            header("HTTP/1.1 400 Bad Request");
+            return json_encode(
+                [
+                    "status" => "error",
+                    "message" => "Il faut des données"]
+            );
+        }
+
+        if(!isset($json->Email) || !isset($json->Password) ) {
+            header("HTTP/1.1 400 Bad Request");
+            return json_encode(
+                [
+                    "status" => "error",
+                    "message" => "Il faut des données"]
+            );
+        }
+
+        // Récupérer les infos du user grace à son Email
+        $user = User::SqlGetByMail($json->Email);
+        if($user==null) {
+            header("HTTP/1.1 403 Forbiden");
+            return json_encode(
+                [
+                    "status" => "error",
+                    "message" => "Email inconnu dans notre système"]
+            );
+        }
+
+        // Comparer le mot de passe
+        if(!password_verify($json->Password, $user->getPassword())){
+            header("HTTP/1.1 403 Forbiden");
+            return json_encode(
+                [
+                    "status" => "error",
+                    "message" => "Mot de passe incorrect"]
+            );
+        }
+
+        // Retourne le JWT
+        return JwtService::createToken([
+           "Email" => $user->getEmail(),
+           "Roles" => $user->getRoles()
+        ]);
+
+
     }
 
 }
