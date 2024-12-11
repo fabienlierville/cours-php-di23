@@ -5,6 +5,7 @@ use src\Model\Article;
 
 class AdminArticleController extends AbstractController{
     public function list(){
+        UserController::haveGoodRole(["Verificateur", "Administrateur", "Redacteur"]);
         $articles = Article::SqlGetAll();
         return $this->twig->render('Admin/Article/list.html.twig', [
             'articles' => $articles
@@ -12,6 +13,7 @@ class AdminArticleController extends AbstractController{
     }
 
     public function delete(int $id){
+        UserController::haveGoodRole(["Administrateur"]);
         Article::SqlDelete($id);
         header('location: /AdminArticle/list');
     }
