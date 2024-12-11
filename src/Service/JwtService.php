@@ -2,6 +2,7 @@
 namespace src\Service;
 
 use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
 
 class JwtService {
     public static String $secretKey = "cesi";
@@ -26,5 +27,47 @@ class JwtService {
             "HS256"
         );
         return $jwt;
+    }
+
+    public static function checkToken() :array
+    {
+        if(!preg_match("/Bearer\s(\S+)/",$_SERVER["HTTP_AUTHORIZATION"],$matches)){
+            return [
+                "status" => "error",
+                "message" => "Bearer token is not here"
+            ];
+        }
+
+        $jwt = $matches[1];
+        if(!$jwt){
+            return [
+                "status" => "error",
+                "message" => "Aucun jeton n'a pu être extrait de l'entête Bearer"
+            ];
+        }
+
+        try{
+            $token = JWT::decode($jwt,new Key(self::$secretKey,'HS256'));
+        }catch (\Exception $exception){
+            return [
+                "status" => "error",
+                "message" => "les données du jeton ne sont pas compatibles : {$exception->getMessage()}"
+            ];
+        }
+
+        $now = new \DateTimeImmutable();
+        $serverName = "cesi.local";
+        if($token->iss !== $serverName || $token->exp < $now->getTimestamp() || $token->nbf > $now->getTimestamp()){
+            return [
+                "status" => "error",
+                "message" => "Nom du serveur ou date expiration invalide"
+            ];
+        }
+
+        return [
+            "status" => "success",
+            "message" => "JWT Valide",
+            "data" => $token->data
+        ];
     }
 }
