@@ -2,6 +2,7 @@
 namespace src\Controller;
 
 use src\Model\Article;
+use src\Service\JwtService;
 
 class ApiArticleController {
     public function __construct() {
@@ -17,6 +18,12 @@ class ApiArticleController {
                     "message" => "Get Attendu"]
             );
         }
+
+        $jwtresult = JwtService::checkToken();
+        if($jwtresult["status"] == "error") {
+            return json_encode($jwtresult["message"]);
+        }
+
         $articles = Article::SqlGetAll();
         return json_encode($articles);
     }
