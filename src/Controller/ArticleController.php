@@ -3,6 +3,7 @@
 namespace src\Controller;
 
 use Mpdf\Mpdf;
+use Mpdf\Output\Destination;
 use src\Model\Article;
 use src\Model\BDD;
 
@@ -50,6 +51,6 @@ class ArticleController extends AbstractController
         $mpdf->WriteHTML($this->twig->render('Article/pdf.html.twig', [
             'article' => $article
         ]));
-        $mpdf->Output();
+        $mpdf->Output($_SERVER["DOCUMENT_ROOT"]."/uploads/pdf/article-".$article->getId().".pdf", dest: Destination::FILE);
     }
 }

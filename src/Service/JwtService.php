@@ -67,7 +67,7 @@ class JwtService {
         return [
             "status" => "success",
             "message" => "JWT Valide",
-            "data" => $token->data
+            "data" => CryptService::encrypt(json_encode($token->data))
         ];
     }
 }
