@@ -7,14 +7,20 @@ class AdminArticleController extends AbstractController{
     public function list(){
         UserController::haveGoodRole(["Verificateur", "Administrateur", "Redacteur"]);
         $articles = Article::SqlGetAll();
+        $token = bin2hex(random_bytes(32));
+        $_SESSION['token'] = $token;
         return $this->twig->render('Admin/Article/list.html.twig', [
-            'articles' => $articles
+            'articles' => $articles,
+            'token' => $token
         ]);
     }
 
-    public function delete(int $id){
+    public function delete(){
         UserController::haveGoodRole(["Administrateur"]);
-        Article::SqlDelete($id);
+        if($_SESSION['token'] == $_POST['token']){
+            Article::SqlDelete($_POST["id"]);
+        }
+
         header('location: /AdminArticle/list');
     }
 

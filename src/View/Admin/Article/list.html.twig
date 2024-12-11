@@ -22,7 +22,12 @@
                 <td>{{ article.DatePublication|date('d/m/Y') }}</td>
                 <td>{{ article.Auteur }}</td>
                 <td><a href="/Article/pdf/{{ article.Id }}"><i class="bi bi-file-pdf"></i></a></td>
-                <td><a href="/AdminArticle/delete/{{ article.Id }}"><i class="bi bi-trash"></i></a></td>
+                <td><form method="post" action="/AdminArticle/delete">
+                        <input type="hidden" value="{{ article.Id }}" name="id">
+                        <input type="hidden" value="{{ token }}" name="token">
+                        <button type="submit" class="btn btn-danger">X</button>
+                    </form>
+                </td>
             </tr>
         {% endfor %}
         </tbody>
